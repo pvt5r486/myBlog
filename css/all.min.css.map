@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "AAAA,OAAO,CAAC,mEAAI",
+    "sources": [
+        "../scss/all.scss",
+        "../scss/_myBlog.scss"
+    ],
+    "names": [],
+    "file": "all.min.css"
+}
