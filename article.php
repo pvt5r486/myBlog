@@ -35,19 +35,20 @@
   <div class="container my-5">
     <?php include('./handle/getArticle.php'); ?>
     <div class="article border border-secondary p-3">
-      <h1 class="h1 font-weight-bold mb-3"><?= $article['title'] ?></h1>
-      <p class="mt-3 mb-5" style="white-space:pre-line;"><?= $article['content'] ?></p>
+      <h1 class="h1 font-weight-bold mb-3"><?= $articleArray[$_GET['id']]['title'] ?></h1>
+      <p class="mt-3 mb-5" style="white-space:pre-line;"><?= $articleArray[$_GET['id']]['content'] ?></p>
       <div class="d-flex">
-        <?php foreach ($article['category'] as $key => $category) : ?>
-          <span class="badge badge-secondary mr-1">
-            <?= $category['name'] ?>
-          </span>
-        <?php endforeach ?>
-        <small class="text-secondary ml-auto"><?= $article['created_at'] ?></small>
+        <?php
+        $categoryArray = explode(",", $articleArray[$_GET['id']]['categoryName']);
+        foreach ($categoryArray as $key => $category) {
+          echo "<span class='badge badge-secondary mr-1'>$category</span>";
+        }
+        ?>
+        <small class="text-secondary ml-auto"><?= $articleArray[$_GET['id']]['created_at'] ?></small>
       </div>
     </div>
     <div class="text-center my-3">
-      <a href="comment.php?id=<?= $article['id'] ?>" class="btn btn-primary btn-sm my-auto">發表評論</a>
+      <a href="comment.php?id=<?= $_GET['id'] ?>" class="btn btn-primary btn-sm my-auto">發表評論</a>
       <a href="index.php" class="btn btn-success btn-sm my-auto">回首頁</a>
     </div>
     <?php include('./handle/getComments.php'); ?>

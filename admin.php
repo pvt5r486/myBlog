@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,11 +46,12 @@
           <div class="mr-3">
             <span class="text-nowrap mr-1">[<?= (int)$item['is_draft'] === 0 ? "草稿" : "已發表"  ?>]</span>
             <span class="text-nowrap mr-1">No.<?= $key + 1 ?></span>
-            <?php foreach ($item['category'] as $key => $category) : ?>
-              <span class="badge badge-secondary">
-                <?= $category['name'] ?>
-              </span>
-            <?php endforeach ?>
+            <?php
+            $categoryArray = explode(",", $item['categoryName']);
+            foreach ($categoryArray as $key => $category) {
+              echo "<span class='badge badge-secondary mr-1'>$category</span>";
+            }
+            ?>
           </div>
           <span class="d-block mr-auto"><?= $item['title'] ?></span>
           <div class="text-nowrap ml-3">

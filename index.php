@@ -46,11 +46,12 @@
           ?>
           <p class="p-3"><?= $content ?></p>
           <div class="d-flex">
-            <?php foreach ($item['category'] as $key => $category) : ?>
-              <span class="badge badge-secondary mr-1">
-                <?= $category['name'] ?>
-              </span>
-            <?php endforeach ?>
+            <?php
+            $categoryArray = explode(",", $item['categoryName']);
+            foreach ($categoryArray as $key => $category) {
+              echo "<span class='badge badge-secondary mr-1'>$category</span>";
+            }
+            ?>
             <small class="text-secondary ml-auto"><?= $item['created_at'] ?></small>
           </div>
         </li>

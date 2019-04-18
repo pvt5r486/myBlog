@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +8,6 @@
   <link rel="stylesheet" href="./css/all.min.css">
   <title>myBlog 管理後台</title>
 </head>
-
 <body>
   <div class="container">
     <h1 class="h1">編輯文章</h1>
@@ -21,9 +19,9 @@
     <form method="POST" action="./handle/updateArticle.php">
       <?php include('./handle/getArticle.php'); ?>
       <div class="form-group">
-        <input type="hidden" name="id" id="id" value="<?= $article['id'] ?>">
+        <input type="hidden" name="id" id="id" value="<?= $articleArray[$_GET['id']]['id'] ?>">
         <label for="title">*標題</label>
-        <input type="text" class="form-control" value="<?= $article['title'] ?>" id="title" name="title" placeholder="請輸入標題.." require>
+        <input type="text" class="form-control" value="<?= $articleArray[$_GET['id']]['title'] ?>" id="title" name="title" placeholder="請輸入標題.." require>
       </div>
       <div class="form-group">
         <label for="category">*分類</label>
@@ -34,8 +32,9 @@
               $itemID = $item['id'];
               $flag = false;
               // 尋找 $article['category'] 內有無 符合 $item['name']
-              foreach ($article['category'] as $key => $category) {
-                if ($category['name'] === $item['name']) {
+              $s_categoryArray = explode(",",  $articleArray[$_GET['id']]['categoryName']);
+              foreach ($s_categoryArray as $key => $category) {
+                if ($category === $item['name']) {
                   $flag = true;
                   echo "<option value='$itemID' selected>";
                   echo $item['name'];
@@ -55,7 +54,7 @@
         <label for="is_draft">狀態</label>
         <select name="is_draft" id="is_draft" class="form-control">
           <?php
-          if ((int)$article['is_draft'] === 0) {
+          if ((int)$articleArray[$_GET['id']]['is_draft'] === 0) {
             echo "<option value='0' selected>草稿</option>";
             echo "<option value='1' >已發佈</option>";
           } else {
@@ -67,7 +66,7 @@
       </div>
       <div class="form-group">
         <label for="content">文章內容</label>
-        <textarea class="form-control" name="content" id="content" cols="30" rows="10" placeholder="請輸入內容.."><?= $article['content'] ?></textarea>
+        <textarea class="form-control" name="content" id="content" cols="30" rows="10" placeholder="請輸入內容.."><?= $articleArray[$_GET['id']]['content'] ?></textarea>
       </div>
       <div class="d-flex justify-content-center">
         <button type="submit" class="btn btn-primary">送出</button>
